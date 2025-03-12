@@ -19,7 +19,7 @@ public_users.post("/register", (req,res) => {
 });
 
 // Get the book list available in the shop
-public_users.get('/',function (req, res) {
+public_users.get('/', function (req, res) {
     res.status(200).send(books);
 });
 
@@ -63,4 +63,47 @@ public_users.get('/review/:isbn',function (req, res) {
     res.status(200).send(book["reviews"]);
 });
 
+const origin = "https://phanson99999-5000.theianext-1-labs-prod-misc-tools-us-east-0.proxy.cognitiveclass.ai"
+async function getAllBooks() {
+    try {
+        const response = await axios.get(`${origin}/`);
+        return response.data;
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+      }
+}
+
+
+async function getBookByIsbn(isbn) {
+    try {
+        const response = await axios.get(`${origin}/isbn/${isbn}`);
+        return response.data;
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+      }
+}
+
+
+async function getBookByAuthor(author) {
+    try {
+        const response = await axios.get(`${origin}/author/${author}`);
+        return response.data;
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+      }
+}
+
+
+async function getBookByTitle(title) {
+    try {
+        const response = await axios.get(`${origin}/title/${title}`);
+        return response.data;
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+      }
+}
 module.exports.general = public_users;
